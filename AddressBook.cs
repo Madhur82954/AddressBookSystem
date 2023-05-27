@@ -31,7 +31,7 @@ namespace AddressBookSystem
             con.Add(contact);
         }
 
-        /*public void Display()
+        public void Display()
         {
             foreach (Contact contact in con)
             {
@@ -46,7 +46,7 @@ namespace AddressBookSystem
             }
         }
 
-        public void EditContact()
+       /* public void EditContact()
         {
             Console.WriteLine("To Edit Contact Enter FirstName : ");
             string name = Console.ReadLine();
