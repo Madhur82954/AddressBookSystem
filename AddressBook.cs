@@ -46,7 +46,7 @@ namespace AddressBookSystem
             }
         }
 
-       /* public void EditContact()
+        public void EditContact()
         {
             Console.WriteLine("To Edit Contact Enter FirstName : ");
             string name = Console.ReadLine();
@@ -105,6 +105,6 @@ namespace AddressBookSystem
                     }
                 }
             }
-        }*/
+        }
     }
 }
