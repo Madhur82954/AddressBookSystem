@@ -9,7 +9,7 @@ namespace AddressBookSystem
             AddressBook address = new AddressBook();
             while (true)
             {
-                Console.WriteLine("Enter Option \n1) Add Contact \n2) Display Contact");
+                Console.WriteLine("Enter Option \n1) Add Contact \n2) Display Contact \n3) Edit Contact");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -19,9 +19,9 @@ namespace AddressBookSystem
                     case 2:
                         address.Display();
                         break;
-                    /*case 3:
+                    case 3:
                         address.EditContact();
-                        break;*/
+                        break;
                 }
             }
         }
