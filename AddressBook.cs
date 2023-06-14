@@ -147,5 +147,39 @@ namespace AddressBookSystem
             }
             return 0;
         }
+        public static void SearchCity()
+        {
+            Console.WriteLine("Enter Name of City");
+            string city = Console.ReadLine();
+            foreach(var details in con)
+            {
+                var person = con.Find(e => e.City.Equals(city));
+                if (person != null)
+                {
+                    Console.WriteLine("{0} is in the city {1}",details.Firstname,city);
+                }
+                else
+                {
+
+                }
+            }
+        }
+        public static void SearchState()
+        {
+            Console.WriteLine("Enter Name of State");
+            string state = Console.ReadLine();
+            foreach (var details in con)
+            {
+                var person = con.Find(e => e.State.Equals(state));
+                if (person != null)
+                {
+                    Console.WriteLine("{0} is in the city {1}", details.Firstname, state);
+                }
+                else
+                {
+
+                }
+            }
+        }
     }
 }
