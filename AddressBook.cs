@@ -130,5 +130,22 @@ namespace AddressBookSystem
                 }
             }
         }
+        public static int SearchDuplicates(List<Contact> contacts,Contact contact)
+        {
+            foreach(var details in contacts)
+            {
+                var person = contacts.Find(e => e.Firstname.Equals(contact.Firstname));
+                if(person!=null)
+                {
+                    Console.WriteLine("This name Already Exists in Contact"+person.Firstname);
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            return 0;
+        }
     }
 }
