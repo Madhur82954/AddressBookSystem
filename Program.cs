@@ -17,7 +17,7 @@ namespace AddressBookSystem
                 AddressBook address = new AddressBook();
                 while (true)
                 {
-                    Console.WriteLine("Enter Option \n1) Add Contact \n2) Display Contact \n3) Edit Contact \n4) Delete Contact\n5) Search City\n6) Search State");
+                    Console.WriteLine("Enter Option \n1) Add Contact \n2) Display Contact \n3) Edit Contact \n4) Delete Contact\n5) Search City\n6) Search State\n7)View By City or State Name");
                     int option = Convert.ToInt32(Console.ReadLine());
                     switch (option)
                     {
@@ -33,11 +33,14 @@ namespace AddressBookSystem
                         case 4:
                             address.DeleteContact();
                             break;
-                        case 6:
+                        case 5:
                             AddressBook.SearchCity();
                             break;
-                        case 7:
+                        case 6:
                             AddressBook.SearchState();
+                            break;
+                        case 7:
+                            address.ViewByCityOrStateName();
                             break;
                     }
                 }

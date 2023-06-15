@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AddressBookSystem
@@ -9,6 +10,8 @@ namespace AddressBookSystem
         public static Dictionary<string, List<Contact>> addressbooks = new Dictionary<string, List<Contact>>();
         public static List<Contact> con = new List<Contact>();
 
+        public static Dictionary<string, List<Contact>> cityBook = new Dictionary<string, List<Contact>>();
+        public static Dictionary<string, List<Contact>> stateBook = new Dictionary<string, List<Contact>>();
         public static void AddTo(string name)            
         {
             addressbooks.Add(name, con);
@@ -130,14 +133,15 @@ namespace AddressBookSystem
                 }
             }
         }
-        public static int SearchDuplicates(List<Contact> contacts,Contact contact)
+        public static int SearchDuplicate(List<Contact> contacts, Contact contactBook)
         {
-            foreach(var details in contacts)
+
+            foreach (var Details in contacts)
             {
-                var person = contacts.Find(e => e.Firstname.Equals(contact.Firstname));
-                if(person!=null)
+                var person = contacts.Find(p => p.Firstname.Equals(contactBook.Firstname));
+                if (person != null)
                 {
-                    Console.WriteLine("This name Already Exists in Contact"+person.Firstname);
+                    Console.WriteLine("Already this contact exist with same first name : " + person.Firstname);
                     return 1;
                 }
                 else
@@ -151,12 +155,12 @@ namespace AddressBookSystem
         {
             Console.WriteLine("Enter Name of City");
             string city = Console.ReadLine();
-            foreach(var details in con)
+            foreach (var details in con)
             {
                 var person = con.Find(e => e.City.Equals(city));
                 if (person != null)
                 {
-                    Console.WriteLine("{0} is in the city {1}",details.Firstname,city);
+                    Console.WriteLine("{0} is in the city {1}", details.Firstname, city);
                 }
                 else
                 {
@@ -179,6 +183,109 @@ namespace AddressBookSystem
                 {
 
                 }
+            }
+        }
+        public void AddByCity()
+        {
+            foreach(var details in con)
+            {
+                string city = details.City;
+                if (cityBook.ContainsKey(city))
+                {
+                    List<Contact> exist = cityBook[city];
+                    exist.Add(details);
+                }
+                else
+                {
+                    List<Contact> cityContact = new List<Contact>();
+                    cityContact.Add(details);
+                    cityBook.Add(city, cityContact);
+                }
+            }
+        }
+        public void AddByState()
+        {
+            foreach (var details in con)
+            {
+                string state = details.State;
+                if (stateBook.ContainsKey(state))
+                {
+                    List<Contact> exist = stateBook[state];
+                    exist.Add(details);
+                }
+                else
+                {
+                    List<Contact> stateContact = new List<Contact>();
+                    stateContact.Add(details);
+                    cityBook.Add(state, stateContact);
+                }
+            }
+        }
+        public void ViewByCityOrStateName()
+        {
+            Console.WriteLine("Please select your option: \n1)  To view all contacts by city, \n2) To view all contacts by state.");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            if (choice == 1)
+            {
+                int cityCount = cityBook.Count();
+                if (cityCount != 0)
+                {
+                    foreach (KeyValuePair<string, List<Contact>> item in cityBook)
+                    {
+                        Console.WriteLine("\n Following are the Person details residing in the city -" + item.Key);
+                        foreach (var items in item.Value)
+                        {
+                            
+                            Console.WriteLine("First Name : " + items.Firstname);
+                            Console.WriteLine("Last Name : " + items.Lastname);
+                            Console.WriteLine("Address : " + items.Address);
+                            Console.WriteLine("Phone Number : " + items.PhoneNumber);
+                            Console.WriteLine("Email ID : " + items.Email);
+                            Console.WriteLine("City : " + items.City);
+                            Console.WriteLine("State : " + items.State);
+                            Console.WriteLine("ZIP code : " + items.Zip);
+                        }
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nCurrently no entries are inserted.");
+                }
+            }
+            else if (choice == 2)
+            {
+
+                int stateCount = stateBook.Count();
+                if (stateCount != 0)
+                {
+                    foreach (KeyValuePair<string, List<Contact>> item in stateBook)
+                    {
+                        Console.WriteLine("\n Following are the Person details residing in the state -" + item.Key);
+                        foreach (var items in item.Value)
+                        {
+                            Console.WriteLine("First Name : " + items.Firstname);
+                            Console.WriteLine("Last Name : " + items.Lastname);
+                            Console.WriteLine("Address : " + items.Address);
+                            Console.WriteLine("Phone Number : " + items.PhoneNumber);
+                            Console.WriteLine("Email ID : " + items.Email);
+                            Console.WriteLine("City : " + items.City);
+                            Console.WriteLine("State : " + items.State);
+                            Console.WriteLine("ZIP code : " + items.Zip);
+                        }
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("\nCurrently no entries are inserted.");
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("\nWrong entry, Please choose between 1 and 2");
             }
         }
     }
