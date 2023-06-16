@@ -12,7 +12,7 @@ namespace AddressBookSystem
 
         public static Dictionary<string, List<Contact>> cityBook = new Dictionary<string, List<Contact>>();
         public static Dictionary<string, List<Contact>> stateBook = new Dictionary<string, List<Contact>>();
-        public static void AddTo(string name)            
+        public static void AddTo(string name)
         {
             addressbooks.Add(name, con);
         }
@@ -119,7 +119,7 @@ namespace AddressBookSystem
         {
             Console.WriteLine("To Edit Contact Enter FirstName : ");
             string name = Console.ReadLine();
-            foreach(var details in con)
+            foreach (var details in con)
             {
                 if (name == details.Firstname)
                 {
@@ -187,7 +187,7 @@ namespace AddressBookSystem
         }
         public void AddByCity()
         {
-            foreach(var details in con)
+            foreach (var details in con)
             {
                 string city = details.City;
                 if (cityBook.ContainsKey(city))
@@ -236,7 +236,7 @@ namespace AddressBookSystem
                         Console.WriteLine("\n Following are the Person details residing in the city -" + item.Key);
                         foreach (var items in item.Value)
                         {
-                            
+
                             Console.WriteLine("First Name : " + items.Firstname);
                             Console.WriteLine("Last Name : " + items.Lastname);
                             Console.WriteLine("Address : " + items.Address);
@@ -335,8 +335,10 @@ namespace AddressBookSystem
             {
                 Console.WriteLine("Invalid selection, please select between 1 and 2");
             }
-
-
+        }
+        public void SortByName(List<Contact> contacts)
+        {
+            con = contacts.OrderBy(e => e.Firstname).ToList();
         }
     }
 }
