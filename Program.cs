@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ namespace AddressBookSystem
                 AddressBook address = new AddressBook();
                 while (true)
                 {
-                    Console.WriteLine("Enter Option \n1) Add Contact \n2) Display Contact \n3) Edit Contact \n4) Delete Contact \n5) Save And Exit \n6) Save In CSV");
+                    Console.WriteLine("Enter Option \n1) Add Contact \n2) Display Contact \n3) Edit Contact \n4) Delete Contact \n5) Save And Exit \n6) Save In CSV \n7) Save In JSON");
                     int option = Convert.ToInt32(Console.ReadLine());
                     switch (option)
                     {
@@ -48,21 +49,26 @@ namespace AddressBookSystem
                             CsvDeserialise();
                             return;
                         case 7:
+                            AddContactsToJSONFile(AddressBook.con, book);
+                            Console.WriteLine("Data Saved in Json File");
+                            ReadContactsFromJSONFile();
+                            return;
+                        case 8:
                             AddressBook.SearchCity();
                             break;
-                        case 8:
+                        case 9:
                             AddressBook.SearchState();
                             break;
-                        case 9:
+                        case 10:
                             address.ViewByCityOrStateName();
                             break;
-                        case 10:
+                        case 11:
                             address.CountByCityOrStateName();
                             break;
-                        case 11:
+                        case 12:
                             address.SortByName(AddressBook.con);
                             break;
-                        case 12:
+                        case 13:
                             address.SortByChoice(AddressBook.con);
                             break;
                     }
@@ -144,7 +150,50 @@ namespace AddressBookSystem
                 }
 
             }
+        }
+        static void AddContactsToJSONFile(List<Contact> addressBook,string bookName)
+        {
+            string path = @"C:\Users\DELL\source\repos\AddressBookSystem\JSON data.json";
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                using (JsonWriter jsonWriter = new JsonTextWriter(writer))
+                {
+                    foreach (var contact in addressBook)
+                    {
+                        writer.WriteLine("Book Name - " + bookName);
+                        writer.WriteLine("FirstName - " + contact.Firstname);
+                        writer.WriteLine("LastName - " + contact.Lastname);
+                        writer.WriteLine("Address - " + contact.Address);
+                        writer.WriteLine("City - " + contact.City);
+                        writer.WriteLine("State - " + contact.State);
+                        writer.WriteLine("Zip - " + contact.Zip);
+                        writer.WriteLine("PhoneNumber - " + contact.PhoneNumber);
+                        writer.WriteLine("E-mail - " + contact.Email);
+                        writer.WriteLine();
+                    }
+                }
+            }
+        }
+        static void ReadContactsFromJSONFile()
+        {
+            Console.WriteLine("\nReading data from a JSON file");
 
+            string path = @"C:\Users\DELL\source\repos\AddressBookSystem\JSON data.json";
+            if (File.Exists(path))
+            {
+                string[] lines = File.ReadAllLines(path);
+
+                Console.WriteLine("Data read from file:");
+                foreach (string line in lines)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            else
+            {
+                Console.WriteLine("File not found.");
+            }
 
         }
     }
