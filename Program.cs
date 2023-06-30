@@ -10,7 +10,11 @@ namespace AddressBookSystem
     {
         static void Main(string[] args)
         {
-            Console.Write("Enter number of Address Book you want : ");
+            AddressBookDatabase address1 = new AddressBookDatabase();
+            address1.createdatabase();
+            AddressBookDatabase.Insert();
+            AddressBookDatabase.createtable();
+            /*Console.Write("Enter number of Address Book you want : ");
             int numBook = Convert.ToInt32(Console.ReadLine());
             int numberBook = 0;
             List<string> BookNames = new List<string>();
@@ -195,6 +199,7 @@ namespace AddressBookSystem
                 Console.WriteLine("File not found.");
             }
 
+        }*/
         }
     }
 }
